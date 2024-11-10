@@ -141,7 +141,7 @@ void Thread::CheckOverflow() {
 void Thread::Begin() {
     ASSERT(this == kernel->currentThread);
     DEBUG(dbgThread, "Beginning thread: " << name);
-
+    
     kernel->scheduler->CheckToBeDestroyed();
     kernel->interrupt->Enable();
     if (kernel->execExit && this->getIsExec()) {
@@ -206,6 +206,11 @@ void Thread::Yield() {
     DEBUG(dbgThread, "Yielding thread: " << name);
 
     nextThread = kernel->scheduler->FindNextToRun();
+
+    // if (nextThread==NULL) {
+    //     std::cout << "----Yield(): nextThread is NULL, can't call ReadyToRun(nextThread)"  << "\n";
+    // }
+    
     if (nextThread != NULL) {
         kernel->scheduler->ReadyToRun(this);
         kernel->scheduler->Run(nextThread, FALSE);

@@ -23,6 +23,7 @@
 #include "copyright.h"
 #include "debug.h"
 #include "main.h"
+#include <iostream>
 
 //----------------------------------------------------------------------
 // Scheduler::Scheduler

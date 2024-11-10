@@ -105,6 +105,7 @@ void Semaphore::V() {
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
     if (!queue->IsEmpty()) {  // make thread ready.
+        //std::cout << "----V() call: ReadyToRun(queue->RemoveFront()) \n";
         kernel->scheduler->ReadyToRun(queue->RemoveFront());
     }
     value++;
